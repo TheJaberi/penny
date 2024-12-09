@@ -1,25 +1,23 @@
 <div class="login-box">
-    <p>Sign Up</p>
-    <form>
-     <div class="user-box">
-            <input required="" name="" type="text" id="username">
-            <label for id="username">Username</label>
-          </div>
-      <div class="user-box">
-        <input required="" name="" type="text" id="email">
-        <label for id="email">Email</label>
-      </div>
-      <div class="user-box">
-        <input required="" name="" type="password" id="password">
-        <label for id="password">Password</label>
-      </div>
-      <a href="#">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Submit
-      </a>
-    </form>
-    <p>Already have an account? <a href="/login" class="a2">Login!</a></p>
+  <p>Sign Up</p>
+  <div class="user-box">
+    <input required="" name="" type="text" id="username">
+    <label for="username">Username</label>
   </div>
+  <div class="user-box">
+    <input required="" name="" type="text" id="email">
+    <label for="email">Email</label>
+  </div>
+  <div class="user-box">
+    <input required="" name="" type="password" id="password">
+    <label for="password">Password</label>
+  </div>
+  <button class="submit-button" (click)="onSubmit()">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    Submit
+  </button>
+  <p>Already have an account? <a href="/login" class="a2">Login!</a></p>
+</div>
