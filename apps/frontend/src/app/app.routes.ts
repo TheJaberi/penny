@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import { LoginComponent } from './pages/login.component';
 import { SignupComponent } from './pages/signup.component';
 import { HomeComponent } from './pages/home.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const appRoutes: Route[] = [
   {
@@ -19,6 +20,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuard]
   }
 ];
