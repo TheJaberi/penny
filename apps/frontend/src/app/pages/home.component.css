@@ -11,12 +11,19 @@
   overflow: hidden;
   border-radius: 20px;
   color: white;
+  z-index: 1; /* Ensure the card content is above the background */
 }
 
 .card h2 {
-  z-index: 1;
+  z-index: 2; /* Ensure the text is above the background */
   color: white;
   font-size: 2em;
+}
+
+.card p {
+  z-index: 2; /* Ensure the text is above the background */
+  color: white;
+  font-size: 1em;
 }
 
 .card::before {
@@ -27,6 +34,7 @@
   height: 130%;
   animation: rotBGimg 3s linear infinite;
   transition: all 0.2s linear;
+  z-index: 0; /* Ensure the background is below the content */
 }
 
 @keyframes rotBGimg {
@@ -43,10 +51,11 @@
   content: '';
   position: absolute;
   background: #07182E;
-  ;
   inset: 5px;
   border-radius: 15px;
-}  
+  z-index: 1; /* Ensure the overlay is below the content */
+}
+
 .card:hover:before {
   background-image: linear-gradient(180deg, rgb(81, 255, 0), purple);
   animation: rotBGimg 3.5s linear infinite;
@@ -75,5 +84,10 @@
   gap: 20px;
   padding: 20px;
   margin-top: 60px;
+}
+
+.logged-out {
+  color: red;
+  font-weight: bold;
 }
 

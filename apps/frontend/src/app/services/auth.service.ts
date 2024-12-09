@@ -24,6 +24,7 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { username, password })
       .pipe(tap((response: LoginResponse) => {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('username', username);
       }));
   }
 
@@ -45,8 +46,13 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
+  getCurrentUsername(): string | null {
+    return localStorage.getItem('username');
+  }
+
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
     this.router.navigate(['/login']);
   }
 }
