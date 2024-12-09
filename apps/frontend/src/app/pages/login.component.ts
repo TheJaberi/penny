@@ -18,7 +18,7 @@ export class LoginComponent {
     console.log('Login form submitted', { username, password });
     this.authService.login(username, password).subscribe(response => {
       console.log('Login successful', response);
-      this.router.navigate(['/Home']); // Change to the desired URL
+      this.router.navigate(['/home']);
     }, error => {
       console.error('Login failed', error);
     });
