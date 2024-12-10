@@ -1,15 +1,16 @@
 <div class="auth-box">
+  <div class="auth-box">
     <p>{{ mode === 'login' ? 'Login' : 'Sign Up' }}</p>
     <div *ngIf="mode === 'signup'" class="user-box">
-      <input required type="text" id="username" [(ngModel)]="username" />
+      <input required type="text" id="username" [ngModel]="username$ | async" (ngModelChange)="updateUsername($event)" />
       <label for="username">Username</label>
     </div>
     <div class="user-box">
-      <input required type="text" id="email" [(ngModel)]="email" />
+      <input required type="text" id="email" [ngModel]="email$ | async" (ngModelChange)="updateEmail($event)" />
       <label for="email">{{ mode === 'signup' ? 'Email' : 'Email or Username' }}</label>
     </div>
     <div class="user-box">
-      <input required type="password" id="password" [(ngModel)]="password" />
+      <input required type="password" id="password" [ngModel]="password$ | async" (ngModelChange)="updatePassword($event)" />
       <label for="password">Password</label>
     </div>
     <button class="submit-button" (click)="onSubmit()">
@@ -26,4 +27,5 @@
       </a>
     </p>
   </div>
+</div>
   
