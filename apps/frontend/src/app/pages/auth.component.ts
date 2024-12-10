@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { updateUsername, updateEmail, updatePassword, resetAuthForm } from '../store/auth-form.actions';
 import { selectUsername, selectEmail, selectPassword } from '../store/auth-form.selectors';
+import { combineLatest } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
   standalone: true,
@@ -31,7 +33,6 @@ export class AuthComponent implements OnInit {
     this.password$ = this.store.select(selectPassword);
   }
 
-
   ngOnInit(): void {
     // Read mode from route params
     this.route.params.subscribe((params) => {
@@ -52,31 +53,37 @@ export class AuthComponent implements OnInit {
   }
 
   onSubmit() {
-    this.username$.subscribe(username => {
-      this.email$.subscribe(email => {
-        this.password$.subscribe(password => {
-          if (this.mode === 'login') {
-            this.authService.login(email, password).subscribe(
-              response => {
-                console.log('Login successful', response);
-                this.store.dispatch(resetAuthForm());
-                this.router.navigate(['/home']);
-              },
-              error => console.error('Login failed', error)
-            );
-          } else if (this.mode === 'signup') {
-            this.authService.signup(username, email, password).subscribe(
-              response => {
-                console.log('Signup successful', response);
-                this.store.dispatch(resetAuthForm());
-                this.router.navigate(['/auth/login']);
-              },
-              error => console.error('Signup failed', error)
-            );
+    combineLatest([this.username$, this.email$, this.password$])
+      .pipe(take(1))
+      .subscribe(([username, email, password]) => {
+        if (this.mode === 'login') {
+          if (!email || !password) {
+            console.error('Email and password are required');
+            return;
           }
-        });
+          this.authService.login(email, password).subscribe(
+            response => {
+              console.log('Login successful', response);
+              this.store.dispatch(resetAuthForm());
+              this.router.navigate(['/home']);
+            },
+            error => console.error('Login failed', error)
+          );
+        } else if (this.mode === 'signup') {
+          if (!username || !email || !password) {
+            console.error('Username, email, and password are required');
+            return;
+          }
+          this.authService.signup(username, email, password).subscribe(
+            response => {
+              console.log('Signup successful', response);
+              this.store.dispatch(resetAuthForm());
+              this.router.navigate(['/auth/login']);
+            },
+            error => console.error('Signup failed', error)
+          );
+        }
       });
-    });
   }
 
   toggleMode() {
