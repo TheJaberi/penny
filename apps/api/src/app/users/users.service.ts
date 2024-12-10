@@ -79,11 +79,8 @@ export class UsersService {
     };
   }
 
-  async getAllUsers(currentUserId: string) {
-    const users = await this.userModel
-      .find({ _id: { $ne: currentUserId } })
-      .select('username email lastLogin -_id');
-    
+  async getAllUsers() {
+    const users = await this.userModel.find().select('username email lastLogin -_id');
     return users;
   }
 }

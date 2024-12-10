@@ -1,1 +1,29 @@
-<p>auth works!</p>
+<div class="auth-box">
+    <p>{{ mode === 'login' ? 'Login' : 'Sign Up' }}</p>
+    <div *ngIf="mode === 'signup'" class="user-box">
+      <input required type="text" id="username" [(ngModel)]="username" />
+      <label for="username">Username</label>
+    </div>
+    <div class="user-box">
+      <input required type="text" id="email" [(ngModel)]="email" />
+      <label for="email">{{ mode === 'signup' ? 'Email' : 'Email or Username' }}</label>
+    </div>
+    <div class="user-box">
+      <input required type="password" id="password" [(ngModel)]="password" />
+      <label for="password">Password</label>
+    </div>
+    <button class="submit-button" (click)="onSubmit()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Submit
+    </button>
+    <p>
+      {{ mode === 'login' ? "Don't have an account? " : 'Already have an account? ' }}
+      <a (click)="toggleMode()" (keydown.enter)="toggleMode()" tabindex="0" class="a2">
+        {{ mode === 'login' ? 'Sign up!' : 'Login!' }}
+      </a>
+    </p>
+  </div>
+  
